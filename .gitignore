@@ -20,3 +20,4 @@ test/sitemaps
 test/dummy/public/sitemaps
 tmp
 .DS_Store
+.idea

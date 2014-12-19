@@ -143,10 +143,15 @@ module DynamicSitemaps
     end
 
     def format_url(url)
-      case url
-      when ActiveRecord::Base
-        polymorphic_url(url)
-      else
+      begin
+        Required::Module::const_get "ActiveRecord"
+        case url
+          when ActiveRecord::Base
+            polymorphic_url(url)
+          else
+            url
+        end
+      rescue NameError
         url
       end
     end
