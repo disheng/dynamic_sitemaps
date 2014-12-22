@@ -35,6 +35,7 @@ module DynamicSitemaps
     end
 
     def write_url(url, options = {})
+      languages = options[:languages] || []
       write '<url>'
       write '<loc>' + format_url(url) + '</loc>'
       if last_mod = options[:last_mod]
@@ -46,6 +47,12 @@ module DynamicSitemaps
       if priority = options[:priority]
         write '<priority>' + priority.to_s + '</priority>'
       end
+
+      languages.each{ |lang|
+        lang_url = options[lang]
+        write '<xhtml:link rel="alternate" hreflang="'+lang.to_s+'" href="'+ lang_url +'"/>'
+      }
+
       write '</url>'
     end
 
